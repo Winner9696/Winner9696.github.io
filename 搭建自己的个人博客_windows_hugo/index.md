@@ -25,7 +25,7 @@
 
 5. 验证您是否对文件具有*执行*权限，打开命令提示符，执行`hugo version`
 
-   ![hugo version](/image/hugo version.png)
+   ![hugo_version](/image/hugo_version.png)
 
    出现版本号，hugo配置完成
 
@@ -59,7 +59,7 @@ Git for Windows 提供了一个 BASH 仿真，用于从命令行运行 Git。*NI
 
 生成博客命令：
 
-```
+```bash
 hugo new site myblog
 ```
 
@@ -85,13 +85,13 @@ Hugo有很多的主题：[Hugo主题下载地址](https://themes.gohugo.io/)
 
 1、启动博客命令：
 
-```
+```bash
 hugo server -t  m10c --buildDrafts
 ```
 
 ![启动博客](/image/启动博客.png)
 
-2、浏览器访问地址：http://localhost:1313/
+2、浏览器访问地址：`http://localhost:1313/`
 
 ![浏览器访问博客](/image/浏览器访问博客.png)
 
@@ -101,7 +101,7 @@ hugo server -t  m10c --buildDrafts
 
 新建博客命令：
 
-```
+```bash
 hugo new post/blog.md
 ```
 
@@ -123,11 +123,11 @@ hugo new post/blog.md
 
 ### 3、生成public文件夹
 
-——myblog路径下
+——`myblog`路径下
 
 命令（需对应自己的存储仓库名）：
 
-```
+```bash
 hugo --theme=m10c --baseUrl="https://Winner9696.github.io/" --buildDrafts
 ```
 
@@ -135,35 +135,35 @@ hugo --theme=m10c --baseUrl="https://Winner9696.github.io/" --buildDrafts
 
 ### 4、将public文件夹传到远程仓库
 
-——public路径下执行
+——`public`路径下执行
 
 （1）初始化仓库
 
-```
+```bash
 git init
 ```
 
 （2）添加文件到暂存区（'.'是全部添加）
 
-```
+```bash
 git add .
 ```
 
 （3）将暂存区内容添加到仓库中（后跟提交信息）
 
-```
+```bash
 git commit -m "update"
 ```
 
 （4）本地仓库与远程仓库进行关联（需对应自己的github账号和储存仓库名）
 
-```
+```bash
 git remote add origin https://github.com/Winner9696/Winner9696.github.io.git
 ```
 
 （5） 上传远程代码并合并
 
-```
+```bash
 git push --set-upstream origin main
 ```
 
@@ -171,7 +171,7 @@ git push --set-upstream origin main
 
 以后添加文章部署到远程仓库，提交代码的时候一般有以下步骤：
 
-```
+```bash
 cd E:/Hugo/Sites/myblog
 hugo --theme=m10c --baseUrl="https://Winner9696.github.io/" --buildDrafts
 cd E:/Hugo/Sites/myblog/public
@@ -182,15 +182,15 @@ git push -u origin main
 
 以上这样太麻烦，我们可以将`git blog`这个命令作为以后日常一键部署的命令。输入以下命令即可完成配置：
 
-```
+```bash
 git config --global alias.blog '!cd E:/Hugo/Sites/myblog;hugo --theme=m10c --baseUrl="https://Winner9696.github.io/" --buildDrafts;cd E:/Hugo/Sites/myblog/public;git add .;git commit -m 'update';git push -u origin main'
 ```
 
-使用alias即可为一系列命令配置一个别名
+使用`alias`即可为一系列命令配置一个别名
 
 当你写好文章之后，就可以在任意目录执行这个命令：
 
-```
+```bash
 git blog
 ```
 
@@ -198,13 +198,22 @@ git blog
 
 ## 十、补充
 
-### 1、`git add .`出现warning：in the working copy of ···LF will be replaced by CRLF the next time Git
+### 1、`git add .`出现
 
-换行符的问题，Windows下换行符和Unix下的换行符不一样，git会自动转换，但是这样有问题，所以解决方法如下：
+#### 报错信息：
 
-使用命令，禁止自动转换：
+`fatal: unable to access 'https://github.com/Winner9696/Winner9696.github.io.git/': Failed to connect to github.com port 443 after 21058 ms: Couldn't connect to server`
 
-```
+#### 报错原因：
+
+- 换行符的问题，Windows下换行符和Unix下的换行符不一样，git会自动转换，但是这样有问题，所以解决方法如下：
+
+
+#### 解决方案：
+
+- 使用命令，禁止自动转换：
+
+```bash
 git config --global core.autocrlf false
 ```
 
@@ -212,25 +221,25 @@ git config --global core.autocrlf false
 
 #### Hugo静态资源载入逻辑
 
-（1）hugo 的静态文件放置在 /static 文件夹下，文章 markdown 文件放在 /content/post 文件夹下
+（1）hugo 的静态文件放置在 /static 文件夹下，文章 markdown 文件放在 `/content/post`文件夹下
 
-（2）hugo 生成的 public 文件夹（即整个网页静态文件），会将static里的内容放到网站根目录
+（2）hugo 生成的`public`文件夹（即整个网页静态文件），会将`static`里的内容放到网站根目录
 
 （3）基于以上两点，图片的相对路径要写成这种**格式**：`![imagename](/image/imagename.png)`
 
-（4）由于 markdown 和生成的 html 的图片路径是一致的，因此 markdown 里也要这么写。但是如果直接把图片放到 /static/image 里，在本地就无法正常显示这个文件夹
+（4）由于 markdown 和生成的 html 的图片路径是一致的，因此 markdown 里也要这么写。但是如果直接把图片放到`/static/image`里，在本地就无法正常显示这个文件夹
 
 #### 解决方案
 
 基于以上4点原因，解决方案有以下几种：
 
-- 在 /post/image 里放图片，然后复制到 /static/image 评价：麻烦
+- 在 `/post/image` 里放图片，然后复制到 `/static/image` 评价：麻烦
 
 - 在（1）的基础上，写一个批处理，完成复制的任务；（因为之前写过的批处理：生成 public.cmd，只要在前面加上复制的命令就行） 评价：可行，但是不完美，可能出现文件权限问题
 
 - 不管，就当瞎了，本地不看，直接看server实时渲染 评价：可行，但是太惨了
 
-- 做一个 link，链接两个文件夹 评价：一劳永逸，可行。建立链接 cmd（管理员） 命令：
+- 做一个 link，链接两个文件夹 评价：一劳永逸，可行。建立链接 `cmd（管理员）` 命令：
 
 ```
 mklink /d "E:\Hugo\Sites\myblog\content\post\image" "E:\Hugo\Sites\myblog\static\image"
@@ -242,7 +251,30 @@ mklink /d "E:\Hugo\Sites\myblog\content\post\image" "E:\Hugo\Sites\myblog\static
 
 - 文件—>偏好设置—>图像，插入图片时**复制到指定路径** `./image`，应用规则**优先使用相对路径**
 
-### 3、Git命令大全
+### 3、git commit或push报错
+
+#### 报错信息：
+
+`fatal: unable to access 'https://github.com/Winner9696/Winner9696.github.io.git/': Failed to connect to github.com port 443 after 21058 ms: Couldn't connect to server`
+
+#### 报错原因：
+
+- 因为git在拉取或者提交项目时，中间会有git的http和https代理，但是我们本地环境本身就有SSL协议了，所以取消git的https代理即可，不行再取消http的代理。
+
+- 原因还有一个，当前代理网速过慢，所以偶尔会成功，偶尔失败。
+
+#### 解决方案：
+
+- 在项目文件夹的命令行窗口执行下面代码，然后再`git commit`或`git push`取消git本身的https代理，使用自己本机的代理，如果没有的话，其实默认还是用git的
+
+  ```bash
+  //取消http代理
+  git config --global --unset http.proxy
+  //取消https代理 
+  git config --global --unset https.proxy
+  ```
+
+### 4、Git命令大全
 
 [Git命令大全 - 简书 (jianshu.com)](https://www.jianshu.com/p/93318220cdce)
 
