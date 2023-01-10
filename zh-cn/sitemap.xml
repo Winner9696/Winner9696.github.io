@@ -3,7 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml"
   ><url>
       <loc>https://Winner9696.github.io/blog/</loc><lastmod>2023-01-05T22:28:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-      <loc>https://Winner9696.github.io/posts/</loc><lastmod>2023-01-05T22:28:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+      <loc>https://Winner9696.github.io/posts/</loc><lastmod>2023-01-05T22:28:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://Winner9696.github.io/en/posts/"
+            /><xhtml:link
+          rel="alternate"
+          hreflang="zh-cn"
+          href="https://Winner9696.github.io/posts/"
+          /></url><url>
       <loc>https://Winner9696.github.io/</loc><lastmod>2023-01-05T22:28:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
             rel="alternate"
             hreflang="en"
